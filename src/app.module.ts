@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { APP_PIPE } from '@nestjs/core';
 import { AppService } from './app.service';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 const cookieSession = require('cookie-session');
 
@@ -15,6 +16,7 @@ const cookieSession = require('cookie-session');
     }),
     PrismaModule,
     UserModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [

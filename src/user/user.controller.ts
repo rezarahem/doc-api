@@ -39,10 +39,10 @@ export class UserController {
     session.userId = null;
   }
 
-  @Get('who')
-  @UseGuards(AuthGuard)
-  async who(@Session() session: any) {
-    const user = await this.userService.findUserById(session.userId);
-    return user;
-  }
+  // @Get('who')
+  // @UseGuards(AuthGuard)
+  // async who(@Session() session: any) {
+  //   const user = await this.userService.findUserById(session.userId);
+  //   return user;
+  // }
 }
