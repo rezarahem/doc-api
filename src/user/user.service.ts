@@ -54,10 +54,28 @@ export class UserService {
   }
 
   async findUserById(id: string) {
-    return this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
       },
     });
+
+    if (!user) throw new NotFoundException('User not found');
+
+    // switch (user.role) {
+    //   case 'USER':
+    //     console.log('user');
+    //     break;
+    //   case 'AUTHOR':
+    //     console.log('author');
+    //     break;
+    //   case 'ADMIN':
+    //     console.log('admin');
+    //     break;
+    //   default:
+    //     console.log('guest');
+    // }
+
+    return user;
   }
 }
