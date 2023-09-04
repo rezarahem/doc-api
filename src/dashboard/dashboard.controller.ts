@@ -1,12 +1,11 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   NotFoundException,
-  Patch,
   Post,
   Session,
+  UseGuards,
 } from '@nestjs/common';
 import Serilize from 'src/interceptors/serialize.interceptor';
 import { CreateDocDto } from './dtos/create-doc.dto';
