@@ -3,7 +3,7 @@ import { DashboardService } from './dashboard.service';
 import { DashboardController } from './dashboard.controller';
 
 @Module({
+  controllers: [DashboardController],
   providers: [DashboardService],
-  controllers: [DashboardController]
 })
 export class DashboardModule {}
