@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto } from './dtos/create-user.dtos';
+import { CreateUserDto } from './dtos/create-user.dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { UserSigninDto } from './dtos/user-signin.dtos copy';
+import { UserSigninDto } from './dtos/user-signin.dto';
 
 @Injectable()
 export class UserService {

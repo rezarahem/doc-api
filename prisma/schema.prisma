@@ -30,9 +30,9 @@ model Document {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String
-  description String
-  like        Int
+  description String? // if not pass it returns null
+  like        Int      @default(0)
 
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }

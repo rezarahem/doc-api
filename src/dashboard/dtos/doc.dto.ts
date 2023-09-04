@@ -1,15 +1,18 @@
 import { Expose } from 'class-transformer';
 
-export class UserDto {
+export class DocDto {
   @Expose()
   id: string;
 
   @Expose()
-  userName: string;
+  title: string;
 
   @Expose()
-  email: string;
+  description: string;
 
   @Expose()
-  admin: boolean;
+  like: number;
+
+  @Expose()
+  userId: string;
 }

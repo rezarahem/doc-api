@@ -1,9 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateDocDto } from './dtos/create-doc.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class DashboardService {
   constructor(private prisma: PrismaService) {}
+
+  async createDoc(body: CreateDocDto, userId: string) {
+    return await this.prisma.document.create({
+      data: {
+        userId,
+        ...body,
+      },
+    });
+  }
+
+  getAllDocs(userId: string) {
+    return this.prisma.document.findMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  // getDocById ?
+
   //   async findUserById(id: string) {
   //     const user = await this.prisma.user.findUnique({
   //       where: {

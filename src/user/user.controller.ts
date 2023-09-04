@@ -2,16 +2,17 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Post,
   Session,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dtos/create-user.dtos';
+import { CreateUserDto } from './dtos/create-user.dto';
 import Serilize from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
+import { UserSigninDto } from './dtos/user-signin.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { UserSigninDto } from './dtos/user-signin.dtos copy';
 
 @Controller('auth')
 @Serilize(UserDto)
@@ -39,10 +40,11 @@ export class UserController {
     session.userId = null;
   }
 
-  // @Get('who')
-  // @UseGuards(AuthGuard)
-  // async who(@Session() session: any) {
-  //   const user = await this.userService.findUserById(session.userId);
-  //   return user;
-  // }
+  @Get('who')
+  @UseGuards(AuthGuard)
+  async who(@Session() session: any) {
+    const user = await this.userService.findUserById(session.userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
 }

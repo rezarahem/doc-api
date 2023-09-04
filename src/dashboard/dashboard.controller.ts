@@ -1,9 +1,45 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Patch,
+  Post,
+  Session,
+} from '@nestjs/common';
+import Serilize from 'src/interceptors/serialize.interceptor';
+import { CreateDocDto } from './dtos/create-doc.dto';
+import { DashboardService } from './dashboard.service';
+import { DocDto } from './dtos/doc.dto';
+import { UserService } from 'src/user/user.service';
 
 @Controller('dashboard')
+@Serilize(DocDto)
 export class DashboardController {
-  @Get()
-  dashboard() {
-    return 'DASHBOARD';
+  constructor(
+    private dashboardService: DashboardService,
+    private userService: UserService,
+  ) {}
+
+  @Post('post')
+  async postDoc(@Body() body: CreateDocDto, @Session() session: any) {
+    return await this.dashboardService.createDoc(body, session.userId);
   }
+
+  @Get('my-docs')
+  async getAllDocs(@Session() session: any) {
+    const user = await this.userService.findUserById(session.userId);
+    if (!user) throw new NotFoundException('User not found');
+    return this.dashboardService.getAllDocs(user.id);
+  }
+
+  // @Post('/:id')
+  // getDocById() {}
+
+  // @Patch('/:id')
+  // editDoc() {}
+
+  // @Delete('/:id')
+  // removeDoc() {}
 }
