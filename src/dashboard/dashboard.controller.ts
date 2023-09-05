@@ -26,7 +26,7 @@ export class DashboardController {
 
   @Post('post')
   @UseGuards(RolesGuard)
-  @Roles(Role.USER)
+  @Roles(Role.AUTHOR)
   async postDoc(@Body() body: CreateDocDto, @Session() session: any) {
     return await this.dashboardService.createDoc(body, session.userId);
   }

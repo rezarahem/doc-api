@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
 
 @Module({
   controllers: [UserController],
@@ -8,6 +9,6 @@ import { UserService } from './user.service';
 })
 export class UserModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply().forRoutes('*');
+    consumer.apply(CurrentUserMiddleware).forRoutes('*');
   }
 }
