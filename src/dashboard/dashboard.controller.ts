@@ -7,14 +7,14 @@ import {
   Session,
   UseGuards,
 } from '@nestjs/common';
-import Serilize from 'src/interceptors/serialize.interceptor';
 import { CreateDocDto } from './dtos/create-doc.dto';
 import { DashboardService } from './dashboard.service';
 import { DocDto } from './dtos/doc.dto';
 import { UserService } from 'src/user/user.service';
-import { Roles } from 'src/decorators/roles.decorator';
+import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from '@prisma/client';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { RolesGuard } from 'src/core/guards/roles.guard';
+import Serilize from 'src/core/interceptors/serialize.interceptor';
 
 @Controller('dashboard')
 @UseGuards(RolesGuard)
@@ -41,10 +41,9 @@ export class DashboardController {
 
   @Get('docs')
   getAllDocs() {
-    return this.dashboardService.getAllDocs()
+    return this.dashboardService.getAllDocs();
   }
 
-  
   // @Post('/:id')
   // getDocById() {}
 

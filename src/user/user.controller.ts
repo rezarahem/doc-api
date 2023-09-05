@@ -1,14 +1,9 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Session,
-} from '@nestjs/common';
+import { Body, Controller, Post, Session } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/create-user.dto';
-import Serilize from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { UserSigninDto } from './dtos/user-signin.dto';
+import Serilize from 'src/core/interceptors/serialize.interceptor';
 
 @Controller('auth')
 @Serilize(UserDto)
