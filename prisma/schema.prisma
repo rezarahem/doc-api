@@ -20,7 +20,7 @@ model User {
   userName     String
   email        String   @unique
   hashPassword String
-  role         Role     @default(USER)
+  role         Role[]   @default([USER])
 
   document Document[]
 }

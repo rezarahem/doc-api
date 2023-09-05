@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "userName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "hashPassword" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'USER',
+    "role" "Role"[] DEFAULT ARRAY['USER']::"Role"[],
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -20,9 +20,9 @@ CREATE TABLE "Document" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "like" BOOLEAN NOT NULL,
-    "authorId" TEXT NOT NULL,
+    "description" TEXT,
+    "like" INTEGER NOT NULL DEFAULT 0,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Document_pkey" PRIMARY KEY ("id")
 );
@@ -31,4 +31,4 @@ CREATE TABLE "Document" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Document" ADD CONSTRAINT "Document_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Document" ADD CONSTRAINT "Document_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

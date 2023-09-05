@@ -12,9 +12,12 @@ import { CreateDocDto } from './dtos/create-doc.dto';
 import { DashboardService } from './dashboard.service';
 import { DocDto } from './dtos/doc.dto';
 import { UserService } from 'src/user/user.service';
+// import { Roles } from 'src/decorators/roles.decorator';
+// import { Role } from '@prisma/client';
 
 @Controller('dashboard')
 @Serilize(DocDto)
+
 export class DashboardController {
   constructor(
     private dashboardService: DashboardService,
@@ -22,6 +25,7 @@ export class DashboardController {
   ) {}
 
   @Post('post')
+  // @Roles(Role.ADMIN)
   async postDoc(@Body() body: CreateDocDto, @Session() session: any) {
     return await this.dashboardService.createDoc(body, session.userId);
   }
