@@ -1,8 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
-  NotFoundException,
   Post,
   Session,
 } from '@nestjs/common';
@@ -38,11 +36,11 @@ export class UserController {
     session.userId = null;
   }
 
-  @Get('who')
+  // @Get('who')
   // @UseGuards(AuthGuard)
-  async who(@Session() session: any) {
-    const user = await this.userService.findUserById(session.userId);
-    if (!user) throw new NotFoundException('User not found');
-    return user;
-  }
+  // async who(@Session() session: any) {
+  //   const user = await this.userService.findUserById(session.userId);
+  //   if (!user) throw new NotFoundException('User not found');
+  //   return user;
+  // }
 }

@@ -17,6 +17,7 @@ import { Role } from '@prisma/client';
 import { RolesGuard } from 'src/guards/roles.guard';
 
 @Controller('dashboard')
+@UseGuards(RolesGuard)
 @Serilize(DocDto)
 export class DashboardController {
   constructor(
@@ -25,19 +26,25 @@ export class DashboardController {
   ) {}
 
   @Post('post')
-  @UseGuards(RolesGuard)
-  @Roles(Role.AUTHOR)
+  @Roles(Role.AUTHOR, Role.ADMIN)
   async postDoc(@Body() body: CreateDocDto, @Session() session: any) {
     return await this.dashboardService.createDoc(body, session.userId);
   }
 
   @Get('my-docs')
-  async getAllDocs(@Session() session: any) {
+  @Roles(Role.AUTHOR, Role.ADMIN)
+  async getAllUserDocs(@Session() session: any) {
     const user = await this.userService.findUserById(session.userId);
     if (!user) throw new NotFoundException('User not found');
-    return this.dashboardService.getAllDocs(user.id);
+    return this.dashboardService.getAllUserDocs(user.id);
   }
 
+  @Get('docs')
+  getAllDocs() {
+    return this.dashboardService.getAllDocs()
+  }
+
+  
   // @Post('/:id')
   // getDocById() {}
 

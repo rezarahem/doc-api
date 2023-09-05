@@ -16,12 +16,16 @@ export class DashboardService {
     });
   }
 
-  getAllDocs(userId: string) {
+  getAllUserDocs(userId: string) {
     return this.prisma.document.findMany({
       where: {
         userId,
       },
     });
+  }
+
+  getAllDocs() {
+    return this.prisma.document.findMany();
   }
 
   // getDocById ?
